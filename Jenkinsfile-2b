@@ -2,13 +2,15 @@ pipeline {
   agent {
     docker {
       image 'maven:3.8.1-adoptopenjdk-11'
-      args '-v $HOME/.m2:/root/.m2'
+      args '-v /home/vagrant/.m2:/root/.m2'
     }
+  }
+  environment {
+    MAVEN_CONFIG=/home/vagrant/.m2
   }
   stages {
     stage('Build') {
       steps {
-        sh 'env | sort'
         sh 'mvn -B test'
       }
     }
