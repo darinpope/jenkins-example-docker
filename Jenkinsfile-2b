@@ -5,9 +5,6 @@ pipeline {
       args '-v /home/vagrant/.m2:/root/.m2'
     }
   }
-  environment {
-    MAVEN_CONFIG="/home/vagrant/.m2"
-  }
   stages {
     stage('Build') {
       steps {
