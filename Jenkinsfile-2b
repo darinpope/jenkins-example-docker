@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn help:evaluate -Dexpression=settings.localRepository -q -DforceStdout'
+        sh 'mvn -B test'
       }
     }
   }
