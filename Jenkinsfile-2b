@@ -8,7 +8,9 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn -Dmaven.repo.local=/home/vagrant/.m2 -X -B test'
+        sh 'find / -type f'
+        sh 'find / -type d'
+        sh 'mvn -X -B test'
       }
     }
   }
