@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'mvn -X -B test'
+        sh 'mvn -Dmaven.repo.local=/root/.m2 -B test'
       }
     }
   }
