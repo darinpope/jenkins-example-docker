@@ -6,7 +6,7 @@ pipeline {
     }
   }
   environment {
-    MAVEN_CONFIG=/home/vagrant/.m2
+    MAVEN_CONFIG="/home/vagrant/.m2"
   }
   stages {
     stage('Build') {
