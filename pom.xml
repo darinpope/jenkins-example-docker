@@ -5,6 +5,12 @@
   <groupId>com.example.app</groupId>
   <artifactId>my-app</artifactId>
   <version>1</version>
+
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.hamcrest</groupId>
