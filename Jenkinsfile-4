@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    
+    environment {
+        SELENIUM_DOCKER_IMAGE = 'selenium/standalone-chrome:latest'
+        CHROMEDRIVER_CONTAINER_NAME = 'chrome-driver-container'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your repository
+                checkout scm
+            }
+        }
+
+        stage('Build and Run Tests') {
+            steps {
+                script {
+                    // Build your project if necessary (e.g., Maven or Gradle)
+                    // sh 'mvn clean install'
+
+                    // Run Selenium tests inside a Docker container
+                    try {
+                        // Start a Selenium Standalone Chrome container
+                        sh "docker run -d --rm --name $CHROMEDRIVER_CONTAINER_NAME -p 4444:4444 $SELENIUM_DOCKER_IMAGE"
+
+                        // Run your Selenium tests
+                        sh 'mvn clean test -Dtest=YourSeleniumTestClass'
+
+                    } finally {
+                        // Stop and remove the Selenium container
+                        sh "docker stop $CHROMEDRIVER_CONTAINER_NAME"
+                    }
+                }
+            }
+        }
+
+        stage('Publish Results') {
+            steps {
+                // Publish test results (this might depend on the testing framework used)
+                junit 'target/surefire-reports/*.xml'
+
+                // Publish other reports or artifacts if needed
+                // archiveArtifacts 'target/*.jar'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up resources or do post-build actions if necessary
+        }
+    }
+}
